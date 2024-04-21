@@ -1,10 +1,6 @@
 from dotenv import load_dotenv
 from langchain_pinecone import PineconeVectorStore
 
-load_dotenv()
-
-import os
-
 from langchain_community.document_loaders import ReadTheDocsLoader
 from langchain_openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -16,6 +12,7 @@ embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 pc = PineconeVectorStore(index_name=INDEX_NAME, embedding=embeddings)
 
+load_dotenv()
 
 def ingest_docs():
     loader = ReadTheDocsLoader(
