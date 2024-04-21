@@ -9,7 +9,14 @@ from langchain_community.vectorstores import Pinecone as PineconeLangChain
 separators = ["\n\n", "\n", " ", ""]
 
 
-def ingest_docs(embeddings, index_name):
+def ingest_docs():
+    index_name = os.getenv("PINECONE_INDEX_NAME")
+
+    embeddings = OpenAIEmbeddings(
+        model="text-embedding-3-small",
+        openai_api_key=os.getenv("OPENAI_API_KEY")
+    )
+
     pc = PineconeVectorStore(index_name=index_name, embedding=embeddings)
 
     loader = ReadTheDocsLoader(
@@ -39,15 +46,4 @@ def ingest_docs(embeddings, index_name):
 
 if __name__ == "__main__":
     load_dotenv()
-
-    INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
-
-    embeddings = OpenAIEmbeddings(
-        model="text-embedding-3-small",
-        openai_api_key=os.getenv("OPENAI_API_KEY")
-    )
-
-    ingest_docs(
-        embeddings=embeddings,
-        index_name=INDEX_NAME
-    )
+    ingest_docs()
