@@ -1,12 +1,12 @@
+import os
 from dotenv import load_dotenv
 from langchain_pinecone import PineconeVectorStore
-
 from langchain_community.document_loaders import ReadTheDocsLoader
 from langchain_openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Pinecone as PineconeLangChain
 
-INDEX_NAME = "langchain-doc-index"
+INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
 
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
